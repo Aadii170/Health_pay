@@ -1,5 +1,7 @@
 import os
-from decouple import config, Csv
+from decouple import config,Csv
+print("📌 Loaded ALLOWED_HOSTS:", config('ALLOWED_HOSTS'))
+
 
 # ──────────────────────────────────────────────────────────────
 # 📁 BASE DIRECTORY
@@ -15,7 +17,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # ──────────────────────────────────────────────────────────────
 # 🧩 INSTALLED APPS

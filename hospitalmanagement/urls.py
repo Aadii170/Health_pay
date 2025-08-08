@@ -8,6 +8,8 @@ from django.contrib.auth.views import LoginView,LogoutView
 
 #-------------FOR ADMIN RELATED URLS
 urlpatterns = [
+    path('session-debug/', views.session_debug_view, name='session_debug'),
+
 #-------------------Application URLs-------------------
     path('doctor/', include('doctor.urls')),
     path('patient/', include('patient.urls')),

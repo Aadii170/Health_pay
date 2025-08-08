@@ -15,6 +15,20 @@ from patient.forms import PatientForm,PatientUserForm
 from pathologist.models import Pathologist
 
 
+
+
+from django.http import JsonResponse
+
+def session_debug_view(request):
+    session_data = dict(request.session)
+    return JsonResponse({
+        "is_authenticated": request.user.is_authenticated,
+        "username": request.user.username if request.user.is_authenticated else None,
+        "groups": list(request.user.groups.values_list('name', flat=True)) if request.user.is_authenticated else [],
+        "session": session_data,
+    })
+
+
 # Create your views here.
 def home_view(request):
     if request.user.is_authenticated:
@@ -84,7 +98,10 @@ def is_pathologist(user):
 
 
 #---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
+
 def afterlogin_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/')  # ✅ Send unauthenticated users to home
     if is_admin(request.user):
         return redirect('admin-dashboard')
     
