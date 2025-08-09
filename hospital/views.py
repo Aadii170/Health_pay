@@ -17,16 +17,16 @@ from pathologist.models import Pathologist
 
 
 
-from django.http import JsonResponse
+# from django.http import JsonResponse
 
-def session_debug_view(request):
-    session_data = dict(request.session)
-    return JsonResponse({
-        "is_authenticated": request.user.is_authenticated,
-        "username": request.user.username if request.user.is_authenticated else None,
-        "groups": list(request.user.groups.values_list('name', flat=True)) if request.user.is_authenticated else [],
-        "session": session_data,
-    })
+# def session_debug_view(request):
+#     session_data = dict(request.session)
+#     return JsonResponse({
+#         "is_authenticated": request.user.is_authenticated,
+#         "username": request.user.username if request.user.is_authenticated else None,
+#         "groups": list(request.user.groups.values_list('name', flat=True)) if request.user.is_authenticated else [],
+#         "session": session_data,
+#     })
 
 
 # Create your views here.
