@@ -1,17 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Upload Report</title>
+  <style>
+    body {
+      color: #aa082e;
+      background-color: #b6bde7;
+      font-family: 'Roboto', sans-serif;
+    }
+    .note {
+      text-align: center;
+      height: 80px;
+      background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+      color: #fff;
+      font-weight: bold;
+      line-height: 80px;
+    }
+    .form-content {
+      padding: 5%;
+      border: 1px solid #ced4da;
+      margin-bottom: 2%;
+    }
+    .form-control {
+      border-radius: 1.5rem;
+    }
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #0062cc;
+      color: #fff;
+    }
+  </style>
 </head>
-<body>
-    <h2>Upload Report</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
 
+<body>
+  <!-- {% include "hospital/navbar.html" %} -->
+  <br><br><br><br>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container register-form">
+      <div class="form">
+        <div class="note">
+          <p>Upload Patient Report</p>
+        </div>
+
+        <div class="form-content">
+          <p><strong>Patient ID:</strong> {{ patient_id }}</p>
+          <p><strong>Patient Name:</strong> {{ patient_name }}</p>
+
+          <div class="form-group">
+            {{ form.file }}
+          </div>
+
+          <button type="submit" class="btnSubmit">Upload</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {% include "hospital/footer.html" %}
 </body>
 </html>

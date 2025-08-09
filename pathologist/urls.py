@@ -9,6 +9,6 @@ urlpatterns = [
     path('pathologist-dashboard/', views.pathologist_dashboard_view, name='pathologist-dashboard'),
 
 
-    path('upload/', views.upload_report, name='upload-report'),
+    path('upload/<int:pk>/', views.upload_report, name='upload-report'),
     path('success/', views.report_success, name='report-success'),
 ]

@@ -25,9 +25,10 @@ class PathologistForm(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = models.Report
-        fields = ['patient', 'report_name', 'file']
+        fields = ['file']  # use actual field name
 
     def __init__(self, *args, **kwargs):
         super(ReportForm, self).__init__(*args, **kwargs)
-        # Filter only active patients (status=True)
-        self.fields['patient'].queryset = Patient.objects.filter(status=True)
+        # Optional: filter only active patients
+        # self.fields['report_id'].queryset = Patient.objects.filter(status=True)
+

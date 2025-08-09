@@ -23,10 +23,11 @@ class Pathologist(models.Model):
 
 
 class Report(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    report_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     report_name = models.CharField(max_length=100)
     file = models.FileField(upload_to='reports/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.report_name} - {self.patient}"
+        return f"{self.report_name} - {self.report_id}"  # report_id gives Patient object
+
