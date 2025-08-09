@@ -124,7 +124,7 @@ def afterlogin_view(request):
         if accountapproval:
             return redirect('pathologist/pathologist-dashboard/')
         else:
-            return render(request, 'patient/patient_wait_for_approval.html')
+            return render(request, 'pathologist/pathologist_wait_for_approval.html')
     
     # ✅ Catch-all return (in case user is anonymous or has no role)
     return redirect('/') # by default go doctor login page
