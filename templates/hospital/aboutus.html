@@ -5,45 +5,106 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>LazyCoder || sumit</title>
-  <style media="screen">
+  <title>About Us | Hospital Management System</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fbfd;
+    }
+
     .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
+      background: white;
+      padding: 40px 25px;
+      border-radius: 20px;
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+      margin: 20px auto;
+      max-width: 900px;
     }
 
     .jumbotron h1 {
       text-align: center;
+      font-weight: 700;
+      color: #0984e3;
     }
 
-    .alert {
-      margin: 0px;
+    .about-section {
+      margin-top: 30px;
+    }
+
+    .about-section h4 {
+      font-weight: 600;
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+
+    .about-section p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .btn-home {
+      display: inline-block;
+      padding: 10px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      background: #0984e3;
+      color: white;
+      box-shadow: 0px 4px 15px rgba(9, 132, 227, 0.4);
+      transition: 0.3s;
+    }
+
+    .btn-home:hover {
+      background: #086bc0;
+      transform: translateY(-2px);
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #0984e3;
     }
   </style>
-  <title>sumit</title>
 </head>
 
 <body>
   {% include "hospital/navbar.html" %}
-  <br><br>
+
   <center>
-    <h3 class='alert alert-success' style="margin-bottom:0px;">About Us !</h3>
+    <h3 class='alert alert-success' style="margin:0;">About Us</h3>
   </center>
-  <div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
-    <h1 class="display-4">Hello</h1>
-    <p class="lead">A service dedicated to Hospital Admin, Doctor and Patient.</p>
+
+  <div class="jumbotron">
+    <h1>Welcome to Our Hospital Management System</h1>
+    <p class="lead" style="text-align:center;">A complete digital platform connecting <span class="highlight">Admins</span>, <span class="highlight">Doctors</span>, <span class="highlight">Pathologists</span>, and <span class="highlight">Patients</span>.</p>
     <hr class="my-4">
-    <p>Explore our Website.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/" role="button">HOME</a>
-    </p>
+
+    <div class="about-section">
+      <h4>🌟 Our Mission</h4>
+      <p>Our mission is to simplify and streamline hospital operations using cutting-edge technology. From scheduling appointments to managing reports and billing, we ensure that every interaction is fast, secure, and efficient.</p>
+    </div>
+
+    <div class="about-section">
+      <h4>👩‍⚕️ For Doctors</h4>
+      <p>Doctors can manage patient records, update prescriptions, review test results, and track treatment history all in one place.</p>
+    </div>
+
+    <div class="about-section">
+      <h4>🧪 For Pathologists</h4>
+      <p>Pathologists can upload and manage test results with accuracy, ensuring timely delivery of reports to both doctors and patients.</p>
+    </div>
+
+    <div class="about-section">
+      <h4>🏥 For Patients</h4>
+      <p>Patients can register, book appointments, access their reports, and communicate with healthcare providers securely from anywhere.</p>
+    </div>
+
+    <center>
+      <a class="btn-home" href="/">🏠 Go Home</a>
+    </center>
   </div>
+
   {% include "hospital/footer.html" %}
 </body>
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
-
 </html>
