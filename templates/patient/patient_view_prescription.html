@@ -1,0 +1,63 @@
+{% extends 'patient/patient_base.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+        h6 {
+            text-align: center;
+        }
+
+        .row {
+            margin: 100px;
+        }
+    </style>
+</head>
+
+
+<div class="container mt-4">
+    <h3>Prescription for {{ patient.get_name }}</h3>
+    <hr>
+
+    {% if prescriptions %}
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>id</th>
+               
+                <th>Date</th>
+                <th>diagnosis</th>
+                <th>medicines</th>
+        
+            </tr>
+        </thead>
+        <tbody>
+            {% for pres in prescriptions %}
+            <tr>
+                <td>{{ patient.get_name }}</td>
+                <td>{{ pres.date|date:"d M Y, h:i A" }}</td>
+                <td>{{ pres.diagnosis }}</td>
+                <td>{{ pres.medicines }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-danger">No reports found for this patient.</p>
+    {% endif %}
+    <!-- <div class="text-center mt-4">
+        <a href="{% url 'doctor-view-patient' %}" class="btn btn-secondary">Back to Patients</a>
+    </div> -->
+</div>
+</div>
+
+
+{% endblock content %}

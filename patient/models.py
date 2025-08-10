@@ -3,6 +3,8 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
 
+from doctor.models import Doctor    # Assuming you have a Doctor model
+
 
 
 
@@ -26,3 +28,18 @@ class Patient(models.Model):
         return self.user.id
     def __str__(self):
         return self.user.first_name+" ("+self.symptoms+")"
+    
+
+class PrescriptionDetail(models.Model):
+    # doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    diagnosis = models.TextField()
+    medicines = models.TextField(help_text="Comma-separated medicine names")
+    dosage_instructions = models.TextField()
+    follow_up_date = models.DateField(null=True, blank=True)
+    additional_notes = models.TextField(blank=True, null=True)
+    
+
+    def __str__(self):
+        return f"Prescription for {self.patient} "

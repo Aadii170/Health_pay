@@ -25,7 +25,7 @@ class PathologistForm(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = models.Report
-        fields = ['file']  # use actual field name
+        fields = ['report_name','file']  # use actual field name
 
     def __init__(self, *args, **kwargs):
         super(ReportForm, self).__init__(*args, **kwargs)

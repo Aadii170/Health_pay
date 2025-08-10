@@ -1,13 +1,44 @@
 {% extends 'patient/patient_base.html' %}
 {% load static %}
 {% block content %}
-{%include 'patient/patient_dashboard_cards.html'%}
+{% include 'patient/patient_dashboard_cards.html' %}
 <br><br><br><br>
 
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">
+        <h6 class="panel-title">Recent Reports</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+        <thead>
+            <tr>
+                <th>Report Name</th>
+                <th>Ref. By</th>
+                <th>Date Uploaded</th>
+                <th>View / Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in total_reports %}
+            <tr>
+                <td>{{ p.report_name }}</td>
+                <td>{{ doctorName }}</td>
+                <td>{{ p.uploaded_at|date:"d M Y, h:i A" }}</td>
+                <td>
+                    <a href="{{ p.file.url }}" target="_blank" class="btn btn-primary btn-sm">
+                        View
+                    </a>
+                    <a href="{{ p.file.url }}" download class="btn btn-success btn-sm">
+                        Download
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No reports found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock content %}

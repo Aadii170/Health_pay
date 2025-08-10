@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Upload Report</title>
+  <title>Upload Prescription</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
   <style>
@@ -23,7 +23,7 @@
       border-radius: 8px 8px 0 0;
     }
     .card {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
       background: #fff;
       border-radius: 8px;
@@ -57,7 +57,7 @@
 <body>
   <div class="card">
     <div class="note">
-      Upload Patient Report
+      Upload Prescription
     </div>
 
     <form method="post" enctype="multipart/form-data">
@@ -65,18 +65,32 @@
       <div class="form-content">
 
         <div class="patient-info">
-          <p><strong>Patient ID:</strong> {{ patient_id }}</p>
-          <p><strong>Patient Name:</strong> {{ patient_name }}</p>
+          <p><strong>Patient Name:</strong> {{ patient.get_name }}</p>
         </div>
 
         <div class="form-group">
-          <label>Report Name</label>
-          {% render_field form.report_name class="form-control" placeholder="Enter report name" %}
+          <label>Diagnosis</label>
+          {% render_field prescriptionForm.diagnosis class="form-control" placeholder="Enter diagnosis" %}
         </div>
 
         <div class="form-group">
-          <label>Select File</label>
-          {% render_field form.file class="form-control" %}
+          <label>Medicines</label>
+          {% render_field prescriptionForm.medicines class="form-control" placeholder="Enter medicines" %}
+        </div>
+
+        <div class="form-group">
+          <label>Dosage Instructions</label>
+          {% render_field prescriptionForm.dosage_instructions class="form-control" placeholder="Enter dosage instructions" %}
+        </div>
+
+        <div class="form-group">
+          <label>Follow-up Date</label>
+          {% render_field prescriptionForm.follow_up_date class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <label>Additional Notes</label>
+          {% render_field prescriptionForm.additional_notes class="form-control" placeholder="Any additional notes" %}
         </div>
 
         <div class="text-center">
@@ -89,4 +103,3 @@
   {% include "hospital/footer.html" %}
 </body>
 </html>
-  

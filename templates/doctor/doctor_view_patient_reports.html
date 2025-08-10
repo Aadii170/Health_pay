@@ -1,0 +1,68 @@
+{% extends 'doctor/doctor_base.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+        h6 {
+            text-align: center;
+        }
+
+        .row {
+            margin: 100px;
+        }
+    </style>
+</head>
+
+
+<div class="container mt-4">
+    <h3>Reports for {{ patient.get_name }}</h3>
+    <hr>
+
+    {% if reports %}
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Report Name</th>
+                <th>File</th>
+                <th>Date</th>
+                <th>Upload presication</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.report_name }}</td>
+                <td>
+                    <a href="{{ report.file.url }}" class="btn btn-sm btn-primary" target="_blank">
+                        View
+                    </a>
+                    <a href="{% url 'doctor-prescription' patient.id %}" class="btn btn-sm btn-primary">
+                        Upload Prescription
+                    </a>
+
+                </td>
+                <td>{{ report.uploaded_at|date:"d M Y, h:i A" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-danger">No reports found for this patient.</p>
+    {% endif %}
+    <div class="text-center mt-4">
+        <a href="{% url 'doctor-view-patient' %}" class="btn btn-secondary">Back to Patients</a>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}

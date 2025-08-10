@@ -1,80 +1,161 @@
 {% extends 'hospital/homebase.html' %}
 {% load static %}
-<!--
-written By : sumit kumar
-facebook : fb.com/sumit.luv
--->
-
 
 {% block content %}
 
-
 <head>
-  <style media="screen">
-    .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
-      background-image: url('{% static "images/bg.jpg" %}');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    .jumbotron h5,
-    h3 {
-      text-align: center;
-    }
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8fbfd;
+    margin: 0;
+  }
 
+  /* ===== Hero Section ===== */
+  .hero {
+    background: linear-gradient(rgba(0, 140, 255, 0.7), rgba(0, 200, 255, 0.7)),
+                url('{% static "images/bg.jpg" %}') center/cover no-repeat;
+    padding: 100px 20px;
+    color: white;
+    text-align: center;
+    border-bottom-left-radius: 70px;
+    border-bottom-right-radius: 70px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 1.2s ease-in-out;
+  }
 
-    .alert {
-      margin: 0px;
-    }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+  }
 
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+  }
 
+  /* CTA Button */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #008cff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    box-shadow: 0px 5px 15px rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+  }
 
-    .glow {
-      font-size: 50px;
-      color: white;
-      text-align: center;
-      -webkit-animation: glow 1s ease-in-out infinite alternate;
-      -moz-animation: glow 1s ease-in-out infinite alternate;
-      animation: glow 1s ease-in-out infinite alternate;
-    }
+  .cta-btn:hover {
+    background: #00c3ff;
+    color: white;
+    box-shadow: 0px 6px 20px rgba(0,195,255,0.5);
+    transform: translateY(-2px);
+  }
 
-    @-webkit-keyframes glow {
-      from {
-        text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
-      }
+  .cta-btn i {
+    font-size: 1.2rem;
+  }
 
-      to {
-        text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-      }
-    }
-  </style>
+  /* ===== Info Cards ===== */
+  .info-section {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    animation: fadeUp 1.3s ease-in-out;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .info-card i {
+    font-size: 2rem;
+    color: #00c3ff;
+    margin-bottom: 15px;
+  }
+
+  .info-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .info-card p {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
-<br>
-<br>
 
-<div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
-  <br>
-  <h5 class="display-3 glow">You’ll Love the Way We Care for You</h5>
-  <br><br><br><br><br>
-  <p>
-  <h3>Emergency ?</h3>
+<!-- Hero Section -->
+<section class="hero">
+  <h1>You’ll Love the Way We Care for You</h1>
+  <p>Providing compassionate care with modern facilities & expert doctors.</p>
+  <a href="/patientclick" class="cta-btn">
+    <i class="fas fa-calendar-check"></i> Book Appointment
+  </a>
+</section>
 
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="/patientclick" role="button">Take Appointment</a>
-  </p>
-  <br><br>
+<!-- Info Cards -->
+<div class="info-section">
+  <div class="info-card">
+    <i class="fas fa-ambulance"></i>
+    <h3>24/7 Emergency</h3>
+    <p>Round-the-clock emergency care with experienced staff.</p>
+  </div>
+  <div class="info-card">
+    <i class="fas fa-user-md"></i>
+    <h3>Expert Doctors</h3>
+    <p>Specialists in every field to provide the best medical care.</p>
+  </div>
+  <div class="info-card">
+    <i class="fas fa-hospital"></i>
+    <h3>Modern Facilities</h3>
+    <p>Advanced technology & state-of-the-art medical equipment.</p>
+  </div>
 </div>
 
-<br><br><br><br>
-
-{% include "hospital/admin_doctor_patient_card.html" %}
-<br><br><br>
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+<!-- Existing doctor/patient/admin cards -->
+<div class="info-section">
+  {% include "hospital/admin_doctor_patient_card.html" %}
+</div>
 
 {% endblock content %}

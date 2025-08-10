@@ -21,3 +21,11 @@ class PatientForm(forms.ModelForm):
         model=models.Patient
         fields=['address','mobile','status','symptoms','profile_pic']
 
+class PrescriptionDetailForm(forms.ModelForm):
+    class Meta:
+        model=models.PrescriptionDetail
+        fields=['diagnosis', 'medicines', 'dosage_instructions', 'follow_up_date', 'additional_notes']
+        widgets = {
+            
+            'follow_up_date': forms.DateInput(attrs={'type': 'date'}),
+        }

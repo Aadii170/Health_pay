@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render,redirect,reverse,get_object_or_404
 from django.urls import reverse_lazy
 from . import forms,models
 from hospital.models import Appointment,PatientDischargeDetails
@@ -11,6 +11,8 @@ from datetime import datetime,timedelta,date
 from django.conf import settings
 from django.db.models import Q # it is use for and or xor condition in query
 from patient.models import Patient
+from pathologist.models import Report
+from patient.forms import PrescriptionDetailForm
 
 # Create your views here.
 #for showing signup/login button for doctor(by sumit)
@@ -102,6 +104,40 @@ def doctor_view_patient_view(request):
     patients=Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id)
     doctor=models.Doctor.objects.get(user_id=request.user.id) #for profile picture of doctor in sidebar
     return render(request,'doctor/doctor_view_patient.html',{'patients':patients,'doctor':doctor})
+
+
+@login_required(login_url='doctorlogin')
+@user_passes_test(is_doctor)
+def view_patient_reports(request, patient_id):
+    patient = get_object_or_404(Patient, id=patient_id, assignedDoctorId=request.user.id)
+    doctor=models.Doctor.objects.get(user_id=request.user.id) #for profile picture of doctor in sidebar
+    reports = Report.objects.filter(report_id=patient).order_by('-uploaded_at')
+
+    return render(request, 'doctor/doctor_view_patient_reports.html', {
+        'patient': patient,
+        'reports': reports,
+        'doctor':doctor
+    })
+
+
+def doctor_prescription_view(request,pk):
+    prescriptionForm = PrescriptionDetailForm()
+    patient = get_object_or_404(Patient, id=pk)
+    if request.method == 'POST':
+        prescriptionForm = PrescriptionDetailForm(request.POST)
+        if prescriptionForm.is_valid():
+            prescription = prescriptionForm.save(commit=False)
+            prescription.patient = patient
+            # prescription.doctor = models.Doctor.objects.get(user_id=request.user.id)
+            prescription.save()
+            return redirect('doctor-view-patient')
+        
+    return render(request, 'doctor/doctor_prescription.html', {
+        'prescriptionForm': prescriptionForm,
+        'patient': patient,
+        'doctor': models.Doctor.objects.get(user_id=request.user.id)  # for profile picture of doctor in sidebar
+    })
+
 
 
 @login_required(login_url='doctorlogin')

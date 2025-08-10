@@ -11,9 +11,10 @@ from django.db.models import Q
 from doctor.models import Doctor
 from doctor.forms import DoctorForm,DoctorUserForm
 from . import forms,models
-from patient.models import Patient
+from patient.models import Patient, PrescriptionDetail
 from hospital.models import Appointment,PatientDischargeDetails
 from hospital.forms import AppointmentForm,PatientAppointmentForm
+from pathologist.models import Report
 
 # Create your views here.
 
@@ -56,6 +57,8 @@ def is_patient(user):
 def patient_dashboard_view(request):
     patient=Patient.objects.get(user_id=request.user.id)
     doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    report= Report.objects.filter(report_id=patient.id) # Get the latest report for the patient
+
     mydict={
     'patient':patient,
     'doctorName':doctor.get_name,
@@ -64,6 +67,7 @@ def patient_dashboard_view(request):
     'symptoms':patient.symptoms,
     'doctorDepartment':doctor.department,
     'admitDate':patient.admitDate,
+    'total_reports': report,
     }
     return render(request,'patient/patient_dashboard.html',context=mydict)
 
@@ -128,6 +132,14 @@ def patient_view_appointment_view(request):
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     appointments=Appointment.objects.all().filter(patientId=request.user.id)
     return render(request,'patient/patient_view_appointment.html',{'appointments':appointments,'patient':patient})
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_view_prescription_view(request):
+    patient=Patient.objects.get(user_id=request.user.id)
+    prescription= PrescriptionDetail.objects.filter(patient__user_id=request.user.id).order_by('-date')
+    return render(request, 'patient/patient_view_prescription.html', {'prescriptions': prescription, 'patient': patient})
+
 
 
 

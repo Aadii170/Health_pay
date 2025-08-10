@@ -3,44 +3,66 @@
 {% block content %}
 {% include 'pathologist/pathologist_dashboard_cards.html' %}
 <br><br><br><br>
+
 <div class="container">
   <div class="row">
 
-    <!-- Only Patient List -->
-    <div class="panel panel-primary col-md-10" style="margin-left:2%;">
-      <div class="panel-heading" style="text-align:center;">
-        <h6 class="panel-title">Recent Patients</h6>
+    <div class="col-md-12">
+
+      <!-- Search Bar -->
+      <form method="GET" action="{% url 'pathologist-dashboard' %}" class="form-inline mb-3" style="display: flex; gap: 10px; justify-content: flex-end;">
+        <input type="text" name="search" class="form-control" placeholder="Search by name / id / mobile"
+               value="{{ request.GET.search }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <!-- Patient Table -->
+      <div class="panel panel-primary">
+        <div class="panel-heading text-center">
+          <h6 class="panel-title">Recent Patients</h6>
+        </div>
+        <table class="table table-hover" id="dev-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symptoms</th>
+              <th>Mobile</th>
+              <th>Address</th>
+              <th>Upload</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in total_patient %}
+            <tr>
+              <td>{{ p.get_name }}</td>
+              <td>{{ p.symptoms }}</td>
+              <td>{{ p.mobile }}</td>
+              <td>{{ p.address }}</td>
+              <td>
+                <a class="btn btn-danger btn-xs" href="{% url 'upload-report' p.id %}">
+                  <span class="glyphicon glyphicon-upload"></span>
+                </a>
+              </td>
+              <td>
+                {% if p.status %}
+                <span class="label label-primary">Admitted</span>
+                {% else %}
+                <span class="label label-success">On Hold</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center">No patients found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-      <table class="table table-hover" id="dev-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Symptoms</th>
-            <th>Mobile</th>
-            <th>Address</th>
-            <th>Upload</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        {% for p in total_patient %}
-        <tr>
-          <td>{{ p.get_name }}</td>
-          <td>{{ p.symptoms }}</td>
-          <td>{{ p.mobile }}</td>
-          <td>{{ p.address }}</td>
-          <td><a class="btn btn-danger btn-xs" href="{% url 'upload-report' p.id %}"><span class="glyphicon glyphicon-upload"></span></a></td>
 
-          
-          {% if p.status %}
-            <td><span class="label label-primary">Admitted</span></td>
-          {% else %}
-            <td><span class="label label-success">On Hold</span></td>
-          {% endif %}
-        </tr>
-        {% endfor %}
-      </table>
     </div>
-
   </div>
 </div>
+
 {% endblock content %}
