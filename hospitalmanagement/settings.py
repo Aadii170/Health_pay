@@ -21,6 +21,12 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ["healthpay.up.railway.app", "localhost", "127.0.0.1"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://healthpay.up.railway.app",
+]
+
 
 # ──────────────────────────────────────────────────────────────
 # 🧩 INSTALLED APPS
