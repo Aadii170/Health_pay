@@ -1,12 +1,16 @@
 import os
-from decouple import config,Csv
-print("📌 Loaded ALLOWED_HOSTS:", config('ALLOWED_HOSTS'))
+from decouple import config, Csv
+import os
+from dotenv import load_dotenv
+import dj_database_url
+load_dotenv()
 
+# print("📌 Loaded ALLOWED_HOSTS:", config('ALLOWED_HOSTS'))
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ──────────────────────────────────────────────────────────────
 # 📁 BASE DIRECTORY
 # ──────────────────────────────────────────────────────────────
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -14,7 +18,6 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 # ──────────────────────────────────────────────────────────────
 # 🔐 SECURITY SETTINGS
 # ──────────────────────────────────────────────────────────────
-
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
@@ -22,7 +25,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # ──────────────────────────────────────────────────────────────
 # 🧩 INSTALLED APPS
 # ──────────────────────────────────────────────────────────────
-
 INSTALLED_APPS = [
     'channels',  # WebSocket support
 
@@ -42,14 +44,15 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'widget_tweaks',
+    'storages',  # Required for Supabase storage backend
 ]
 
 # ──────────────────────────────────────────────────────────────
 # ⚙️ MIDDLEWARE
 # ──────────────────────────────────────────────────────────────
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,14 +64,12 @@ MIDDLEWARE = [
 # ──────────────────────────────────────────────────────────────
 # 🌐 URL & ASGI SETTINGS
 # ──────────────────────────────────────────────────────────────
-
 ROOT_URLCONF = 'hospitalmanagement.urls'
 ASGI_APPLICATION = 'hospitalmanagement.asgi.application'
 
 # ──────────────────────────────────────────────────────────────
 # 📁 TEMPLATE CONFIGURATION
 # ──────────────────────────────────────────────────────────────
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -88,18 +89,31 @@ TEMPLATES = [
 # ──────────────────────────────────────────────────────────────
 # 🗄️ DATABASE CONFIGURATION
 # ──────────────────────────────────────────────────────────────
+# this is a simple SQLite database configuration
+# but for development and testing, SQLite is sufficient
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# for production, you should use a more robust database like PostgreSQL or MySQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', default='localhost'),
+        'PORT': os.getenv('DB_PORT', default='5432'),
     }
 }
 
 # ──────────────────────────────────────────────────────────────
 # 🔐 PASSWORD VALIDATION
 # ──────────────────────────────────────────────────────────────
-
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -110,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # ──────────────────────────────────────────────────────────────
 # 🌍 INTERNATIONALIZATION
 # ──────────────────────────────────────────────────────────────
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -120,23 +133,24 @@ USE_TZ = True
 # ──────────────────────────────────────────────────────────────
 # 🖼️ STATIC & MEDIA FILES
 # ──────────────────────────────────────────────────────────────
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Enable compressed and cached static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#MEDIA_URL = "/media/"
+#MEDIA_ROOT = BASE_DIR / "media"
 
 # ──────────────────────────────────────────────────────────────
 # 🔐 AUTHENTICATION
 # ──────────────────────────────────────────────────────────────
-
 LOGIN_REDIRECT_URL = '/afterlogin'
 
 # ──────────────────────────────────────────────────────────────
 # 📧 EMAIL CONFIGURATION
 # ──────────────────────────────────────────────────────────────
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
@@ -149,7 +163,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # ──────────────────────────────────────────────────────────────
 # 🔌 CHANNELS CONFIGURATION (WebSockets)
 # ──────────────────────────────────────────────────────────────
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -158,3 +171,20 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseStorage"
+
+
+
+DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseStorage"
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET")
+
+# this is to ensure that the SupabaseStorage is used as the default storage backend 
+# it is necessary to set it up in the settings
+from core.storage_backends import SupabaseStorage
+from django.core.files.storage import default_storage
+default_storage._wrapped = SupabaseStorage() #it overrides the default storage backend with SupabaseStorage
+

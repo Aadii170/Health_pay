@@ -72,6 +72,6 @@ urlpatterns = [
     path('reject-appointment/<int:pk>', views.reject_appointment_view,name='reject-appointment'),
 ]
 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# uncomment for development to serve media files
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

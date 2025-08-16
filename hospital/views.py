@@ -316,12 +316,12 @@ def update_patient_view(request,pk):
     patient=Patient.objects.get(id=pk)
     user=models.User.objects.get(id=patient.user_id)
 
-    userForm=forms.PatientUserForm(instance=user)
-    patientForm=forms.PatientForm(request.FILES,instance=patient)
+    userForm=PatientUserForm(instance=user)
+    patientForm=PatientForm(request.FILES,instance=patient)
     mydict={'userForm':userForm,'patientForm':patientForm}
     if request.method=='POST':
-        userForm=forms.PatientUserForm(request.POST,instance=user)
-        patientForm=forms.PatientForm(request.POST,request.FILES,instance=patient)
+        userForm=PatientUserForm(request.POST,instance=user)
+        patientForm=PatientForm(request.POST,request.FILES,instance=patient)
         if userForm.is_valid() and patientForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
@@ -341,11 +341,11 @@ def update_patient_view(request,pk):
 @user_passes_test(is_admin)
 def admin_add_patient_view(request):
     userForm=forms.PatientUserForm()
-    patientForm=forms.PatientForm()
+    patientForm=PatientForm()
     mydict={'userForm':userForm,'patientForm':patientForm}
     if request.method=='POST':
         userForm=forms.PatientUserForm(request.POST)
-        patientForm=forms.PatientForm(request.POST,request.FILES)
+        patientForm=PatientForm(request.POST,request.FILES)
         if userForm.is_valid() and patientForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
