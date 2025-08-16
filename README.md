@@ -2,6 +2,7 @@
 
 **Health Pay** is a Django-based web application for managing hospital operations such as doctor-patient interaction, appointments, reports, and real-time communication using WebSockets.
 
+🔗 **Live Demo**: [healthpay.up.railway.app](https://healthpay.up.railway.app) 
 🔗 **GitHub Repository**: [Health Pay on GitHub](https://github.com/Aadii170/Health_pay.git)
 
 ---
