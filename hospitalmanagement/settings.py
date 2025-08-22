@@ -182,7 +182,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # for production, you should use Redis as the channel layer backend
 REDIS_URL = os.environ.get(
     "REDIS_URL",
-    "redis://127.0.0.1:6379"  # fallback for local dev
+    # "redis://127.0.0.1:6379"  # fallback for local dev
 )
 
 CHANNEL_LAYERS = {
