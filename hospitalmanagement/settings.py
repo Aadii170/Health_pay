@@ -169,16 +169,35 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # ──────────────────────────────────────────────────────────────
 # 🔌 CHANNELS CONFIGURATION (WebSockets)
 # ──────────────────────────────────────────────────────────────
+# for local development, you can use the in-memory channel layer
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [(config("REDIS_HOST"), config("REDIS_PORT", cast=int))],
+#         },
+#     },
+# }
+
+# for production, you should use Redis as the channel layer backend
+REDIS_URL = os.environ.get(
+    "REDIS_URL",
+    "redis://127.0.0.1:6379"  # fallback for local dev
+)
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(config("REDIS_HOST"), config("REDIS_PORT", cast=int))],
+            "hosts": [REDIS_URL],
         },
     },
 }
 
-# DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseStorage"
+
+
+
+
 
 
 
