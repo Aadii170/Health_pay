@@ -188,6 +188,7 @@ def patient_discharge_view(request):
         print(patientDict)
     else:
         patientDict={
+            'group_name':group_name,
             'is_discharged':False,
             'patient':patient,
             'patientId':request.user.id,
