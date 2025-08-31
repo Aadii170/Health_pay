@@ -58,10 +58,11 @@ def patient_dashboard_view(request):
     patient=Patient.objects.get(user_id=request.user.id)
     doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
     report= Report.objects.filter(report_id=patient.id) # Get the latest report for the patient
-
+    group_name = f"{doctor.id}-{patient.id}"
     mydict={
     'patient':patient,
     'doctorName':doctor.get_name,
+    'group_name':group_name,
     'doctorMobile':doctor.mobile,
     'doctorAddress':doctor.address,
     'symptoms':patient.symptoms,

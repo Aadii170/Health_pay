@@ -103,6 +103,9 @@ def doctor_patient_view(request):
 def doctor_view_patient_view(request):
     patients=Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id)
     doctor=models.Doctor.objects.get(user_id=request.user.id) #for profile picture of doctor in sidebar
+     # add group_name for each patient (doctorId-patientId)
+    for p in patients:
+        p.group_name = f"{doctor.id}-{p.id}"
     return render(request,'doctor/doctor_view_patient.html',{'patients':patients,'doctor':doctor})
 
 

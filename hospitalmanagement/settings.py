@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'doctor',
     'patient',
     'pathologist',
+    'chat',
 
     # Third-party apps
     'widget_tweaks',
@@ -106,6 +107,7 @@ TEMPLATES = [
 # }
 
 # for production, you should use a more robust database like PostgreSQL or MySQL
+# uncomment for production use with PostgreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -179,7 +181,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #     },
 # }
 
-# for production, you should use Redis as the channel layer backend
+# for production, you should use Redis as the channel layer backend and uncomment below
 REDIS_URL = os.environ.get(
     "REDIS_URL",
     # "redis://127.0.0.1:6379"  # fallback for local dev

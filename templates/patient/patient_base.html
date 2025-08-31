@@ -20,6 +20,7 @@
       text-decoration: none;
       color: white;
     }
+
     a:hover {
       color: #ffdd57;
       transition: color 0.3s ease;
@@ -41,25 +42,30 @@
       z-index: 5;
       color: white;
     }
+
     .menu .avatar {
       padding: 2em 0.5em;
       text-align: center;
     }
+
     .menu .avatar img {
       width: 100px;
       border-radius: 50%;
       border: 4px solid #ffdd57;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
+
     .menu .avatar h2 {
       font-weight: bold;
       font-size: 1.2em;
       margin-top: 10px;
     }
+
     .menu ul {
       list-style: none;
       padding: 0.5em 0;
     }
+
     .menu ul li {
       display: flex;
       align-items: center;
@@ -69,13 +75,15 @@
       cursor: pointer;
       transition: background-color 0.3s ease, padding-left 0.3s ease;
     }
+
     .menu ul li svg {
       width: 20px;
       height: 20px;
       fill: white;
     }
+
     .menu ul li:hover {
-      background-color: rgba(255,255,255,0.15);
+      background-color: rgba(255, 255, 255, 0.15);
       padding-left: 2em;
       border-left: 4px solid #ffdd57;
     }
@@ -83,8 +91,9 @@
     /* Navbar */
     .navbar {
       background: linear-gradient(90deg, #004e92, #000428) !important;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
+
     .navbar-brand {
       font-weight: bold;
       letter-spacing: 1px;
@@ -95,6 +104,7 @@
       background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
       color: white;
     }
+
     .footer-copyright {
       text-align: center;
       font-size: 14px;
@@ -106,24 +116,30 @@
       body {
         padding-left: 90px;
       }
+
       .menu {
         width: 90px;
       }
+
       .menu .avatar img {
         width: 60px;
       }
+
       .menu ul li span {
         display: none;
       }
     }
+
     @media screen and (max-width: 400px) {
       body {
         padding-left: 0;
       }
+
       .menu {
         transform: translateX(-230px);
         transition: transform 0.3s ease;
       }
+
       .menu:focus {
         transform: translateX(0);
       }
@@ -142,25 +158,51 @@
     </header>
     <ul>
       <li>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+        </svg>
         <a href="/patient/patient-dashboard/"><span>Dashboard</span></a>
       </li>
       <li>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-1.99.9-1.99 2L3 21c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-1.99.9-1.99 2L3 21c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z" />
+        </svg>
         <a href="/patient/patient-appointment/"><span>Appointments</span></a>
       </li>
       <li>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm2 6h14v2H5V9zm-2 6h18v2H3v-2z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M3 3h18v2H3V3zm2 6h14v2H5V9zm-2 6h18v2H3v-2z" />
+        </svg>
         <a href="/patient/patient-view-prescription/"><span>Prescription</span></a>
       </li>
       <li>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.65 0-3 1.34-3 3s1.35 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.67 0-8 1.34-8 4v3h8v-3c0-.34.04-.67.09-1H8c.05.33.09.66.09 1v3h8v-3c0-2.66-5.33-4-8-4zm8 0c-.29 0-.62.02-.94.05.6.54.94 1.26.94 1.95v3h8v-3c0-2.66-5.33-4-8-4z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.65 0-3 1.34-3 3s1.35 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.67 0-8 1.34-8 4v3h8v-3c0-.34.04-.67.09-1H8c.05.33.09.66.09 1v3h8v-3c0-2.66-5.33-4-8-4zm8 0c-.29 0-.62.02-.94.05.6.54.94 1.26.94 1.95v3h8v-3c0-2.66-5.33-4-8-4z" />
+        </svg>
         <a href="/patient/patient-view-doctor/"><span>Doctors</span></a>
       </li>
       <li>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L3.5 20.29a1 1 0 0 0 .86 1.45h15.28a1 1 0 0 0 .86-1.45L12 2zM12 18h-1v-2h1v2zm0-4h-1V8h1v6z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2L3.5 20.29a1 1 0 0 0 .86 1.45h15.28a1 1 0 0 0 .86-1.45L12 2zM12 18h-1v-2h1v2zm0-4h-1V8h1v6z" />
+        </svg>
         <a href="/patient/patient-discharge/"><span>Discharge</span></a>
       </li>
+      <li>
+        <!-- 💬 Chat SVG icon -->
+      <li class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8l-6 4V4z" />
+        </svg>
+
+        <a href="{% url 'chatroom' group_name %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+          <span>Chat with Doctor</span>
+        </a>
+      </li>
+
+
+
     </ul>
   </nav>
 
@@ -201,4 +243,5 @@
   </main>
 
 </body>
+
 </html>

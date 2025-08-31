@@ -14,6 +14,7 @@ urlpatterns = [
     path('doctor/', include('doctor.urls')),
     path('patient/', include('patient.urls')),
     path('pathologist/', include('pathologist.urls')),
+    path('chat/', include('chat.urls')),  
     path('admin/', admin.site.urls),
 
 #-------------------FOR HOMEPAGE RELATED URLS-------------------

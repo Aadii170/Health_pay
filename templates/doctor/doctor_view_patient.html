@@ -57,6 +57,14 @@
         <td>{{p.mobile}}</td>
         <td>{{p.address}}</td>
         <td><a href="{% url 'view_patient_reports' p.id %}" class="btn btn-info btn-sm">View Reports</a></td>
+        <td>
+        <td>
+          <a href="{% url 'chatroom' p.group_name %}"
+            class="btn btn-info btn-sm">Chat</a>
+        </td>
+
+        </td>
+
 
       </tr>
       {% endfor %}
