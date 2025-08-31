@@ -58,7 +58,7 @@ def patient_dashboard_view(request):
     patient=Patient.objects.get(user_id=request.user.id)
     doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
     report= Report.objects.filter(report_id=patient.id) # Get the latest report for the patient
-    group_name = f"{doctor.id}-{patient.id}"
+    group_name = f"{doctor.id}-{patient.id}" # Unique group name for patient-doctor chat
     mydict={
     'patient':patient,
     'doctorName':doctor.get_name,
@@ -78,7 +78,9 @@ def patient_dashboard_view(request):
 @user_passes_test(is_patient)
 def patient_appointment_view(request):
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    return render(request,'patient/patient_appointment.html',{'patient':patient})
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    return render(request,'patient/patient_appointment.html',{'patient':patient,'group_name':group_name})
 
 
 
@@ -88,7 +90,9 @@ def patient_book_appointment_view(request):
     appointmentForm=PatientAppointmentForm()
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     message=None
-    mydict={'appointmentForm':appointmentForm,'patient':patient,'message':message}
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    mydict={'appointmentForm':appointmentForm,'patient':patient,'message':message,'group_name':group_name}
     if request.method=='POST':
         appointmentForm=PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
@@ -111,8 +115,11 @@ def patient_book_appointment_view(request):
 
 def patient_view_doctor_view(request):
     doctors=Doctor.objects.all().filter(status=True)
+
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors,'group_name':group_name})
 
 
 
@@ -122,7 +129,9 @@ def search_doctor_view(request):
     # whatever user write in search box we get in query
     query = request.GET['query']
     doctors=Doctor.objects.all().filter(status=True).filter(Q(department__icontains=query)| Q(user__first_name__icontains=query))
-    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors,'group_name':group_name})
 
 
 
@@ -132,14 +141,18 @@ def search_doctor_view(request):
 def patient_view_appointment_view(request):
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     appointments=Appointment.objects.all().filter(patientId=request.user.id)
-    return render(request,'patient/patient_view_appointment.html',{'appointments':appointments,'patient':patient})
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    return render(request,'patient/patient_view_appointment.html',{'appointments':appointments,'patient':patient,'group_name':group_name})
 
 @login_required(login_url='patientlogin')
 @user_passes_test(is_patient)
 def patient_view_prescription_view(request):
     patient=Patient.objects.get(user_id=request.user.id)
     prescription= PrescriptionDetail.objects.filter(patient__user_id=request.user.id).order_by('-date')
-    return render(request, 'patient/patient_view_prescription.html', {'prescriptions': prescription, 'patient': patient})
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
+    return render(request, 'patient/patient_view_prescription.html', {'prescriptions': prescription, 'patient': patient,'group_name':group_name})
 
 
 
@@ -149,10 +162,13 @@ def patient_view_prescription_view(request):
 def patient_discharge_view(request):
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     dischargeDetails=PatientDischargeDetails.objects.all().filter(patientId=patient.id).order_by('-id')[:1]
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    group_name = f"{doctor.id}-{patient.id}"
     patientDict=None
     if dischargeDetails:
         patientDict ={
         'is_discharged':True,
+        'group_name':group_name,
         'patient':patient,
         'patientId':patient.id,
         'patientName':patient.get_name,
