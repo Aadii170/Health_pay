@@ -28,7 +28,7 @@
 | **Frontend**  | HTML, CSS, Bootstrap, JavaScript         |
 | **Database**  | PostgreSQL (production), SQLite (dev)    |
 | **Real-Time** | WebSockets, Redis                        |
-| **Deployment**| Railway, Heroku (via Procfile)           |
+| **Deployment**| Railway(via Procfile)           |
 | **Email**     | Gmail SMTP                               |
 
 ---
